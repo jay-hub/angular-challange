@@ -1,0 +1,29 @@
+<div class="card" *ngIf="currentQuestion <= quizCollection.TotalQuestions">
+    <div class="card-header">
+      Question {{currentQuestion }}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{quizCollection.Questions[currentQuestion - 1].Question}}</h5>
+      <div class="card-text">
+          <ul style="list-style: none;">
+              <li *ngFor="let answer of quizCollection.Questions[currentQuestion - 1].Answers">
+                  <input type="radio" name="answer" (change)="markAnswer($event)" value="{{answer.Id}}" /> {{ answer.Answer }}
+              </li>
+          </ul>
+        </div>
+
+      <button class="btn btn-primary" (click)="nextQuestion()" *ngIf="currentQuestion < quizCollection.TotalQuestions"  >Next Question</button>
+      <a class="btn btn-primary" (click)="result()"  *ngIf="currentQuestion == quizCollection.TotalQuestions" >Finish</a>
+    </div>
+  </div>
+
+  <div class="card text-center" *ngIf="currentQuestion > quizCollection.TotalQuestions">
+    <div class="card-header">
+      Results
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Your results are here</h5>
+      <p class="card-text">You got {{quizCollection.TotalCorrectAnswers}} out of {{quizCollection.TotalQuestions}}</p>
+      <a href="#" class="btn btn-primary">Start Over</a>
+    </div>
+  </div>
